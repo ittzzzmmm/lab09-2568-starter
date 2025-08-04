@@ -4,6 +4,7 @@ import { type TaskCardProps } from "../libs/Todolist";
 import { useState } from "react";
 
 function App() {
+  const [doneCount,setDoneCount] = useState(0);
   const [tasks, setTasks] = useState<TaskCardProps[]>([
     {
       id: "1",
@@ -43,13 +44,19 @@ function App() {
       todo.id === taskId ? { ...todo, isDone: !todo.isDone } : todo
     );
     setTasks(newTasks);
+
+    const temp = newTasks.filter((task:TaskCardProps)=> task.isDone===true);
+    setDoneCount(temp.length);
+
   };
+
+  
 
   return (
     <div className="col-12 m-2 p-0">
       <div className="container text-center">
         <h2>Todo List</h2>
-        <span className="m-2">All : () Done : ()</span>
+        <span className="m-2">All : ({tasks.length}) Done : ({doneCount})</span>
         {/* Modal Component */}
         <button
           type="button"
